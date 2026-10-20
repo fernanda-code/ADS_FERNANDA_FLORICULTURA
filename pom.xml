@@ -16,6 +16,13 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>repo-local</id>
+            <url>file://${project.basedir}/repo</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>jakarta.platform</groupId>
@@ -28,6 +35,11 @@
             <artifactId>primefaces</artifactId>
             <version>13.0.0</version>
             <classifier>jakarta</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>manhattan</artifactId>
+            <version>7.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

@@ -19,6 +19,10 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>manhattan-cyan-deeporange</param-value>
+    </context-param>
 
     <session-config>
         <session-timeout>30</session-timeout>
