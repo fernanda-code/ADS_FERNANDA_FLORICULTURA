@@ -1,0 +1,88 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Categorias</ui:define>
+
+    <ui:define name="content">
+        <div class="grid">
+            <div class="col-12">
+                <div class="card">
+                    <h2>Categorias</h2>
+
+                    <h:form id="formLista">
+                        <div class="flex flex-wrap align-items-center gap-2 mb-3">
+                            <p:inputText id="filtro" value="#{categoriaBean.filtro}" placeholder="Buscar por nome"/>
+                            <p:commandButton value="Buscar" icon="pi pi-search"
+                                             action="#{categoriaBean.listar}"
+                                             process="@form" update="tabela"/>
+                            <p:commandButton value="Limpar" icon="pi pi-times" styleClass="ui-button-secondary"
+                                             action="#{categoriaBean.limparFiltro}"
+                                             process="@this" update="filtro tabela"/>
+                            <p:commandButton value="Nova categoria" icon="pi pi-plus" styleClass="ml-auto"
+                                             action="#{categoriaBean.novo}"
+                                             process="@this" update=":formDialog"
+                                             oncomplete="PF('dlgCategoria').show()"
+                                             resetValues="true"/>
+                        </div>
+
+                        <p:dataTable id="tabela" value="#{categoriaBean.categorias}" var="c"
+                                     rows="10" paginator="true"
+                                     emptyMessage="Nenhuma categoria encontrada.">
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{c.nome}"/>
+                            </p:column>
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{c.descricao}"/>
+                            </p:column>
+                            <p:column headerText="Ações" style="width:8rem;text-align:center">
+                                <p:commandButton icon="pi pi-pencil" title="Editar" styleClass="mr-1"
+                                                 action="#{categoriaBean.editar(c)}"
+                                                 process="@this" update=":formDialog"
+                                                 oncomplete="PF('dlgCategoria').show()"
+                                                 resetValues="true"/>
+                                <p:commandButton icon="pi pi-trash" title="Excluir" styleClass="ui-button-danger"
+                                                 action="#{categoriaBean.excluir(c)}"
+                                                 process="@this" update="tabela :growl">
+                                    <p:confirm header="Confirmação" message="Excluir esta categoria?"
+                                               icon="pi pi-exclamation-triangle"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary ui-confirmdialog-no"/>
+                        </p:confirmDialog>
+                    </h:form>
+
+                    <p:dialog header="Categoria" widgetVar="dlgCategoria" modal="true"
+                              responsive="true" width="450" closeOnEscape="true">
+                        <h:form id="formDialog">
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <p:outputLabel for="nome" value="Nome"/>
+                                    <p:inputText id="nome" value="#{categoriaBean.categoria.nome}"
+                                                 required="true" requiredMessage="O nome é obrigatório."
+                                                 maxlength="80"/>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="descricao" value="Descrição"/>
+                                    <p:inputTextarea id="descricao" value="#{categoriaBean.categoria.descricao}"
+                                                     rows="3" maxlength="255"/>
+                                </div>
+                            </div>
+                            <p:commandButton value="Salvar" icon="pi pi-check"
+                                             action="#{categoriaBean.salvar}"
+                                             process="@form" update="@form :formLista:tabela :growl"/>
+                        </h:form>
+                    </p:dialog>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
