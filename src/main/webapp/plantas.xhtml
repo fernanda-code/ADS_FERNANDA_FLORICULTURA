@@ -1,0 +1,120 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Plantas</ui:define>
+
+    <ui:define name="content">
+        <div class="grid">
+            <div class="col-12">
+                <div class="card">
+                    <h2>Plantas</h2>
+
+                    <h:form id="formLista">
+                        <div class="flex flex-wrap align-items-center gap-2 mb-3">
+                            <p:inputText id="filtro" value="#{plantaBean.filtro}" placeholder="Buscar por nome"/>
+                            <p:commandButton value="Buscar" icon="pi pi-search"
+                                             action="#{plantaBean.listar}"
+                                             process="@form" update="tabela"/>
+                            <p:commandButton value="Limpar" icon="pi pi-times" styleClass="ui-button-secondary"
+                                             action="#{plantaBean.limparFiltro}"
+                                             process="@this" update="filtro tabela"/>
+                            <p:commandButton value="Nova planta" icon="pi pi-plus" styleClass="ml-auto"
+                                             action="#{plantaBean.novo}"
+                                             process="@this" update=":formDialog"
+                                             oncomplete="PF('dlgPlanta').show()"
+                                             resetValues="true"/>
+                        </div>
+
+                        <p:dataTable id="tabela" value="#{plantaBean.plantas}" var="pl"
+                                     rows="10" paginator="true"
+                                     emptyMessage="Nenhuma planta encontrada.">
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{pl.nome}"/>
+                            </p:column>
+                            <p:column headerText="Categoria">
+                                <h:outputText value="#{pl.categoria.nome}"/>
+                            </p:column>
+                            <p:column headerText="Local">
+                                <h:outputText value="#{pl.local.nome}"/>
+                            </p:column>
+                            <p:column headerText="Preço" style="text-align:right">
+                                <h:outputText value="#{pl.preco}">
+                                    <f:convertNumber type="currency" currencySymbol="R$ " locale="pt_BR"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Estoque" style="text-align:center">
+                                <h:outputText value="#{pl.estoque}"/>
+                            </p:column>
+                            <p:column headerText="Ações" style="width:8rem;text-align:center">
+                                <p:commandButton icon="pi pi-pencil" title="Editar" styleClass="mr-1"
+                                                 action="#{plantaBean.editar(pl)}"
+                                                 process="@this" update=":formDialog"
+                                                 oncomplete="PF('dlgPlanta').show()"
+                                                 resetValues="true"/>
+                                <p:commandButton icon="pi pi-trash" title="Excluir" styleClass="ui-button-danger"
+                                                 action="#{plantaBean.excluir(pl)}"
+                                                 process="@this" update="tabela :growl">
+                                    <p:confirm header="Confirmação" message="Excluir esta planta?"
+                                               icon="pi pi-exclamation-triangle"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary ui-confirmdialog-no"/>
+                        </p:confirmDialog>
+                    </h:form>
+
+                    <p:dialog header="Planta" widgetVar="dlgPlanta" modal="true"
+                              responsive="true" width="450" closeOnEscape="true">
+                        <h:form id="formDialog">
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <p:outputLabel for="nome" value="Nome"/>
+                                    <p:inputText id="nome" value="#{plantaBean.planta.nome}"
+                                                 required="true" requiredMessage="O nome é obrigatório."
+                                                 maxlength="100"/>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="preco" value="Preço"/>
+                                    <p:inputNumber id="preco" value="#{plantaBean.planta.preco}"
+                                                   symbol="R$ " symbolPosition="p"
+                                                   decimalSeparator="," thousandSeparator="."
+                                                   decimalPlaces="2" minValue="0"
+                                                   required="true" requiredMessage="O preço é obrigatório."/>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="categoria" value="Categoria"/>
+                                    <p:selectOneMenu id="categoria" value="#{plantaBean.categoriaId}"
+                                                     required="true" requiredMessage="Selecione a categoria.">
+                                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{plantaBean.categorias}" var="c"
+                                                       itemLabel="#{c.nome}" itemValue="#{c.id}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="local" value="Local"/>
+                                    <p:selectOneMenu id="local" value="#{plantaBean.localId}"
+                                                     required="true" requiredMessage="Selecione o local.">
+                                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{plantaBean.locais}" var="l"
+                                                       itemLabel="#{l.nome}" itemValue="#{l.id}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <p:commandButton value="Salvar" icon="pi pi-check"
+                                             action="#{plantaBean.salvar}"
+                                             process="@form" update="@form :formLista:tabela :growl"/>
+                        </h:form>
+                    </p:dialog>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

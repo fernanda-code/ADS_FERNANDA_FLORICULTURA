@@ -13,10 +13,37 @@
         </div>
 
         <div class="layout-menu-container">
+            <h:form id="menuform"><ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/manhattan">
+
+    <div class="layout-sidebar">
+        <div class="layout-sidebar-logo">
+            <a href="#" id="layout-sidebar-anchor" class="layout-sidebar-anchor" title="Alternar menu">
+                <i class="pi"/>
+            </a>
+        </div>
+
+        <div class="layout-menu-container">
             <h:form id="menuform">
                 <pm:menu widgetVar="ManhattanMenuWidget">
                     <p:menuitem id="mnuInicio" value="Início" icon="pi pi-fw pi-home" outcome="index.xhtml"/>
+                    <p:menuitem id="mnuPlantas" value="Plantas" icon="pi pi-fw pi-star" outcome="plantas.xhtml"/>
                     <p:menuitem id="mnuCategorias" value="Categorias" icon="pi pi-fw pi-tags" outcome="categorias.xhtml"/>
+                    <p:menuitem id="mnuLocais" value="Locais" icon="pi pi-fw pi-map-marker" outcome="locais.xhtml"/>
+                </pm:menu>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>
+                <pm:menu widgetVar="ManhattanMenuWidget">
+                    <p:menuitem id="mnuInicio" value="Início" icon="pi pi-fw pi-home" outcome="index.xhtml"/>
+                    <p:menuitem id="mnuCategorias" value="Categorias" icon="pi pi-fw pi-tags" outcome="categorias.xhtml"/>
+                    <p:menuitem id="mnuLocais" value="Locais" icon="pi pi-fw pi-map-marker" outcome="locais.xhtml"/>
                 </pm:menu>
             </h:form>
         </div>
