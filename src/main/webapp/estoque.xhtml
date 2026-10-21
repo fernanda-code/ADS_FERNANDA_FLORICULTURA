@@ -1,0 +1,101 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Controle de Estoque</ui:define>
+
+    <ui:define name="content">
+        <div class="grid">
+            <div class="col-12">
+                <div class="card">
+                    <h2>Controle de Estoque</h2>
+
+                    <h:form id="formLista">
+                        <div class="flex flex-wrap align-items-center gap-2 mb-3">
+                            <p:inputText id="filtro" value="#{estoqueBean.filtro}" placeholder="Buscar por planta"/>
+                            <p:commandButton value="Buscar" icon="pi pi-search"
+                                             action="#{estoqueBean.listar}"
+                                             process="@form" update="tabela"/>
+                            <p:commandButton value="Limpar" icon="pi pi-times" styleClass="ui-button-secondary"
+                                             action="#{estoqueBean.limparFiltro}"
+                                             process="@this" update="filtro tabela"/>
+                            <p:commandButton value="Nova movimentação" icon="pi pi-plus" styleClass="ml-auto"
+                                             action="#{estoqueBean.novo}"
+                                             process="@this" update=":formDialog"
+                                             oncomplete="PF('dlgMovimentacao').show()"
+                                             resetValues="true"/>
+                        </div>
+
+                        <p:dataTable id="tabela" value="#{estoqueBean.movimentacoes}" var="m"
+                                     rows="10" paginator="true"
+                                     emptyMessage="Nenhuma movimentação encontrada.">
+                            <p:column headerText="Data">
+                                <h:outputText value="#{m.data}">
+                                    <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Planta">
+                                <h:outputText value="#{m.planta.nome}"/>
+                            </p:column>
+                            <p:column headerText="Tipo" style="text-align:center">
+                                <p:tag value="#{m.tipo.descricao}"
+                                       severity="#{m.tipo.name() eq 'ENTRADA' ? 'success' : 'danger'}"/>
+                            </p:column>
+                            <p:column headerText="Quantidade" style="text-align:center">
+                                <h:outputText value="#{m.quantidade}"/>
+                            </p:column>
+                            <p:column headerText="Observação">
+                                <h:outputText value="#{m.observacao}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+                    <p:dialog header="Nova movimentação" widgetVar="dlgMovimentacao" modal="true"
+                              responsive="true" width="450" closeOnEscape="true">
+                        <h:form id="formDialog">
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <p:outputLabel for="planta" value="Planta"/>
+                                    <p:selectOneMenu id="planta" value="#{estoqueBean.plantaId}"
+                                                     required="true" requiredMessage="Selecione a planta.">
+                                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{estoqueBean.plantas}" var="pl"
+                                                       itemLabel="#{pl.nome} (estoque: #{pl.estoque})"
+                                                       itemValue="#{pl.id}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="tipo" value="Tipo"/>
+                                    <p:selectOneMenu id="tipo" value="#{estoqueBean.movimentacao.tipo}"
+                                                     required="true" requiredMessage="Selecione o tipo.">
+                                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{estoqueBean.tipos}" var="t"
+                                                       itemLabel="#{t.descricao}" itemValue="#{t}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="quantidade" value="Quantidade"/>
+                                    <p:spinner id="quantidade" value="#{estoqueBean.movimentacao.quantidade}"
+                                               min="1" required="true"
+                                               requiredMessage="A quantidade é obrigatória."/>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="observacao" value="Observação"/>
+                                    <p:inputTextarea id="observacao" value="#{estoqueBean.movimentacao.observacao}"
+                                                     rows="3" maxlength="255"/>
+                                </div>
+                            </div>
+                            <p:commandButton value="Registrar" icon="pi pi-check"
+                                             action="#{estoqueBean.salvar}"
+                                             process="@form" update="@form :formLista:tabela :growl"/>
+                        </h:form>
+                    </p:dialog>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
