@@ -1,0 +1,22 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Acesso negado</ui:define>
+
+    <ui:define name="content">
+        <div class="grid">
+            <div class="col-12">
+                <div class="card">
+                    <h2>Acesso negado</h2>
+                    <p>Você não tem permissão para abrir esta página. Ela é exclusiva para administradores.</p>
+                    <h:link outcome="/index.xhtml" value="Voltar ao início"/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

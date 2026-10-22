@@ -1,0 +1,113 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Usuários</ui:define>
+
+    <ui:define name="content">
+        <div class="grid">
+            <div class="col-12">
+                <div class="card">
+                    <h2>Usuários</h2>
+
+                    <h:form id="formLista">
+                        <div class="flex flex-wrap align-items-center gap-2 mb-3">
+                            <p:inputText id="filtro" value="#{usuarioBean.filtro}" placeholder="Buscar por nome"/>
+                            <p:commandButton value="Buscar" icon="pi pi-search"
+                                             action="#{usuarioBean.listar}"
+                                             process="@form" update="tabela"/>
+                            <p:commandButton value="Limpar" icon="pi pi-times" styleClass="ui-button-secondary"
+                                             action="#{usuarioBean.limparFiltro}"
+                                             process="@this" update="filtro tabela"/>
+                            <p:commandButton value="Novo usuário" icon="pi pi-plus" styleClass="ml-auto"
+                                             action="#{usuarioBean.novo}"
+                                             process="@this" update=":formDialog"
+                                             oncomplete="PF('dlgUsuario').show()"
+                                             resetValues="true"/>
+                        </div>
+
+                        <p:dataTable id="tabela" value="#{usuarioBean.usuarios}" var="u"
+                                     rows="10" paginator="true"
+                                     emptyMessage="Nenhum usuário encontrado.">
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{u.nome}"/>
+                            </p:column>
+                            <p:column headerText="E-mail">
+                                <h:outputText value="#{u.email}"/>
+                            </p:column>
+                            <p:column headerText="Perfil" style="text-align:center">
+                                <p:tag value="#{u.perfil.descricao}"
+                                       severity="#{u.perfil.name() eq 'ADMIN' ? 'warning' : 'info'}"/>
+                            </p:column>
+                            <p:column headerText="Ações" style="width:8rem;text-align:center">
+                                <p:commandButton icon="pi pi-pencil" title="Editar" styleClass="mr-1"
+                                                 action="#{usuarioBean.editar(u)}"
+                                                 process="@this" update=":formDialog"
+                                                 oncomplete="PF('dlgUsuario').show()"
+                                                 resetValues="true"/>
+                                <p:commandButton icon="pi pi-trash" title="Excluir" styleClass="ui-button-danger"
+                                                 action="#{usuarioBean.excluir(u)}"
+                                                 process="@this" update="tabela :growl">
+                                    <p:confirm header="Confirmação" message="Excluir este usuário?"
+                                               icon="pi pi-exclamation-triangle"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary ui-confirmdialog-no"/>
+                        </p:confirmDialog>
+                    </h:form>
+
+                    <p:dialog header="Usuário" widgetVar="dlgUsuario" modal="true"
+                              responsive="true" width="450" closeOnEscape="true">
+                        <h:form id="formDialog">
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <p:outputLabel for="nome" value="Nome"/>
+                                    <p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
+                                                 required="true" requiredMessage="O nome é obrigatório."
+                                                 maxlength="100"/>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="email" value="E-mail"/>
+                                    <p:inputText id="email" value="#{usuarioBean.usuario.email}"
+                                                 required="true" requiredMessage="O e-mail é obrigatório."
+                                                 validatorMessage="E-mail inválido."
+                                                 maxlength="120">
+                                        <f:validateRegex pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"/>
+                                    </p:inputText>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="perfil" value="Perfil"/>
+                                    <p:selectOneMenu id="perfil" value="#{usuarioBean.usuario.perfil}"
+                                                     required="true" requiredMessage="Selecione o perfil.">
+                                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{usuarioBean.perfis}" var="pf"
+                                                       itemLabel="#{pf.descricao}" itemValue="#{pf}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="senha"
+                                                   value="#{usuarioBean.usuario.id == null ? 'Senha' : 'Nova senha (deixe em branco para manter)'}"/>
+                                    <p:password id="senha" value="#{usuarioBean.senha}" feedback="false"
+                                                autocomplete="new-password"
+                                                required="#{usuarioBean.usuario.id == null}"
+                                                requiredMessage="A senha é obrigatória."/>
+                                </div>
+                            </div>
+                            <p:commandButton value="Salvar" icon="pi pi-check"
+                                             action="#{usuarioBean.salvar}"
+                                             process="@form" update="@form :formLista:tabela :growl"/>
+                        </h:form>
+                    </p:dialog>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

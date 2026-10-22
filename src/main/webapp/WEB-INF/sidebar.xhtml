@@ -15,11 +15,13 @@
         <div class="layout-menu-container">
             <h:form id="menuform">
                 <pm:menu widgetVar="ManhattanMenuWidget">
-                    <p:menuitem id="mnuInicio" value="Início" icon="pi pi-fw pi-home" outcome="index.xhtml"/>
-                    <p:menuitem id="mnuEstoque" value="Controle de Estoque" icon="pi pi-fw pi-sort-alt" outcome="estoque.xhtml"/>
-                    <p:menuitem id="mnuPlantas" value="Plantas" icon="pi pi-fw pi-star" outcome="plantas.xhtml"/>
-                    <p:menuitem id="mnuCategorias" value="Categorias" icon="pi pi-fw pi-tags" outcome="categorias.xhtml"/>
-                    <p:menuitem id="mnuLocais" value="Locais" icon="pi pi-fw pi-map-marker" outcome="locais.xhtml"/>
+                    <p:menuitem id="mnuInicio" value="Início" icon="pi pi-fw pi-home" outcome="/index.xhtml"/>
+                    <p:menuitem id="mnuEstoque" value="Controle de Estoque" icon="pi pi-fw pi-sort-alt" outcome="/estoque.xhtml"/>
+                    <p:menuitem id="mnuPlantas" value="Plantas" icon="pi pi-fw pi-star" outcome="/plantas.xhtml"/>
+                    <p:menuitem id="mnuCategorias" value="Categorias" icon="pi pi-fw pi-tags" outcome="/categorias.xhtml"/>
+                    <p:menuitem id="mnuLocais" value="Locais" icon="pi pi-fw pi-map-marker" outcome="/locais.xhtml"/>
+                    <p:menuitem id="mnuUsuarios" value="Usuários" icon="pi pi-fw pi-users"
+                                outcome="/admin/usuarios.xhtml" rendered="#{loginBean.admin}"/>
                 </pm:menu>
             </h:form>
         </div>
