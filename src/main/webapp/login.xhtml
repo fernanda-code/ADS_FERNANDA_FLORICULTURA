@@ -12,29 +12,36 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes"/>
         </f:facet>
-        <title>Floricultura &#8211; Entrar</title>
+        <title>Flor &amp; Folha &#8211; Entrar</title>
     </h:head>
 
-    <h:body styleClass="login-body">
+    <h:body styleClass="login-body"
+            style="background-image: linear-gradient(rgba(47,74,36,0.55), rgba(47,74,36,0.55)), url(#{resource['floricultura:images/login-fundo.jpg']});">
         <h:form id="loginForm">
             <p:growl id="growl" showDetail="true" life="4000"/>
             <p:defaultCommand target="btnLogar"/>
 
             <div class="grid grid-nogutter">
                 <div class="col-12" style="text-align:center">
-                    <p:graphicImage name="images/logo-manhattan.png" library="manhattan-layout" styleClass="logo"/>
+                    <div class="flor-logo">
+                        <svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
+                            <path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+                        </svg>
+                        <span>Flor &amp; Folha</span>
+                    </div>
                 </div>
             </div>
 
             <div class="login-panel">
                 <div class="grid">
                     <div class="col-12 lg:col-6 left-side">
-                        <p:graphicImage name="images/login/login-photo.png" library="manhattan-layout" styleClass="login-image"/>
+                        <p:graphicImage name="images/login-flores.avif" library="floricultura"
+                                        alt="Flores" styleClass="login-image"/>
                     </div>
                     <div class="col-12 lg:col-6 right-side ui-fluid">
                         <div class="col-12 container">
                             <h3>Bem-vindo(a)!</h3>
-                            <h2>Entre na Floricultura</h2>
+                            <h2>Acesse o sistema</h2>
                         </div>
                         <div class="col-12">
                             <div class="input-wrapper ui-input-icon-left">
@@ -65,7 +72,8 @@
 
         <h:outputStylesheet name="css/primeicons.css" library="manhattan-layout"/>
         <h:outputStylesheet name="css/primeflex.min.css" library="manhattan-layout"/>
-        <h:outputStylesheet name="css/layout-cyan-deeporange.css" library="manhattan-layout"/>
+        <h:outputStylesheet name="css/layout-green-orange.css" library="manhattan-layout"/>
+        <h:outputStylesheet name="css/floricultura.css" library="floricultura"/>
     </h:body>
 
 </html>

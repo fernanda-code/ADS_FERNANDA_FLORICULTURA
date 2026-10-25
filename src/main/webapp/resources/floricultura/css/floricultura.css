@@ -1,0 +1,108 @@
+/* Personalização da Flor & Folha: verde e bege por cima do Manhattan.
+   Para voltar ao visual original, basta apagar este arquivo. */
+
+:root {
+    --flor-verde: #4f7f3c;
+    --flor-verde-escuro: #2f4a24;
+    --flor-bege: #f3ecdc;
+    --flor-bege-escuro: #e6dcc4;
+    --flor-creme: #fffaf0;
+    --flor-texto: #3d3a30;
+}
+
+body {
+    background-color: var(--flor-bege);
+    color: var(--flor-texto);
+}
+
+/* Cartões e rodapé */
+.card {
+    background: var(--flor-creme);
+    border: 1px solid var(--flor-bege-escuro);
+    border-radius: 8px;
+}
+
+.layout-wrapper .layout-main .layout-footer {
+    background: var(--flor-creme);
+    border-color: var(--flor-bege-escuro);
+}
+
+/* Barra do topo */
+.layout-wrapper .layout-main .layout-topbar {
+    background-color: var(--flor-creme);
+}
+
+/* Menu lateral */
+.layout-wrapper.layout-light .layout-sidebar {
+    background: var(--flor-bege-escuro);
+}
+
+.layout-wrapper .layout-sidebar .layout-sidebar-logo {
+    background-color: var(--flor-verde);
+    background-image: none;
+}
+
+.layout-wrapper.layout-light .layout-sidebar .layout-menu li > a {
+    color: var(--flor-verde-escuro);
+}
+
+.layout-wrapper.layout-light .layout-sidebar .layout-menu > li > a:hover {
+    background-color: #d8cdb0;
+}
+
+/* Tela de login */
+.login-body {
+    background-color: var(--flor-verde-escuro);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.login-body .login-panel {
+    background-color: var(--flor-creme);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.login-body .login-panel .left-side {
+    position: relative;
+    padding: 0;
+    min-height: 260px;
+    overflow: hidden;
+}
+
+.login-body .login-panel .left-side .login-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.login-body .login-panel .right-side h3 {
+    color: #8a8672;
+}
+
+.login-body .login-panel .right-side h2 {
+    color: var(--flor-verde-escuro);
+}
+
+/* Logo em texto */
+.flor-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    color: var(--flor-creme);
+}
+
+.flor-logo span {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}

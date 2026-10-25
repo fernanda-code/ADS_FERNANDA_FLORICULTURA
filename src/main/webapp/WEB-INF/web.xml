@@ -21,12 +21,17 @@
     </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>manhattan-cyan-deeporange</param-value>
+        <param-value>manhattan-green-orange</param-value>
     </context-param>
 
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+
+    <mime-mapping>
+        <extension>avif</extension>
+        <mime-type>image/avif</mime-type>
+    </mime-mapping>
 
     <welcome-file-list>
         <welcome-file>login.xhtml</welcome-file>
