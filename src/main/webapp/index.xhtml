@@ -10,12 +10,51 @@
     <ui:define name="content">
         <div class="grid">
             <div class="col-12">
-                <div class="card">
-                    <h2>Olá, #{loginBean.usuarioLogado.nome}!</h2>
-                    <p>Bem-vindo(a) ao sistema de controle de estoque da floricultura.</p>
-                    <p>Use o menu lateral para cadastrar plantas, categorias e locais e registrar as entradas e saídas do estoque.</p>
+                <div class="flor-banner"
+                     style="background-image: linear-gradient(90deg, rgba(47,74,36,0.75), rgba(47,74,36,0.1)), url(#{resource['floricultura:images/banner-home.jpg']});">
+                    <div class="flor-banner-texto">
+                        <span class="flor-banner-selo">Flor &amp; Folha Floricultura</span>
+                        <h1>Plantas que trazem vida para a sua casa</h1>
+                        <p>Flores, folhagens e suculentas selecionadas com carinho.</p>
+                        <h:link outcome="/plantas.xhtml" value="Conhecer as plantas" styleClass="flor-banner-botao"/>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-12">
+                <h2 class="flor-titulo-secao">Nossas plantas</h2>
+            </div>
+
+            <ui:repeat value="#{homeBean.plantas}" var="pl">
+                <div class="col-12 sm:col-6 lg:col-3">
+                    <div class="flor-card">
+                        <div class="flor-card-img">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+                            </svg>
+                        </div>
+                        <div class="flor-card-corpo">
+                            <span class="flor-card-categoria">#{pl.categoria.nome}</span>
+                            <h3>#{pl.nome}</h3>
+                            <div class="flor-card-rodape">
+                                <span class="flor-preco">
+                                    <h:outputText value="#{pl.preco}">
+                                        <f:convertNumber type="currency" currencySymbol="R$ " locale="pt_BR"/>
+                                    </h:outputText>
+                                </span>
+                                <p:tag value="#{pl.estoque gt 0 ? 'Em estoque' : 'Esgotado'}"
+                                       severity="#{pl.estoque gt 0 ? 'success' : 'danger'}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:repeat>
+
+            <h:panelGroup layout="block" styleClass="col-12" rendered="#{empty homeBean.plantas}">
+                <div class="card">
+                    <p>Nenhuma planta cadastrada ainda. Cadastre a primeira na tela de Plantas.</p>
+                </div>
+            </h:panelGroup>
         </div>
     </ui:define>
 
