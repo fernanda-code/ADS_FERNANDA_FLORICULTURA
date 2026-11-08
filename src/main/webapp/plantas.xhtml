@@ -32,6 +32,12 @@
                         <p:dataTable id="tabela" value="#{plantaBean.plantas}" var="pl"
                                      rows="10" paginator="true"
                                      emptyMessage="Nenhuma planta encontrada.">
+                            <p:column headerText="Foto" style="width:5rem;text-align:center">
+                                <h:graphicImage value="/foto/#{pl.foto}" styleClass="flor-miniatura"
+                                                rendered="#{not empty pl.foto}"/>
+                                <i class="pi pi-image" style="font-size:1.5rem;color:#b5ae96"
+                                   jsf:rendered="#{empty pl.foto}" xmlns:jsf="jakarta.faces"/>
+                            </p:column>
                             <p:column headerText="Nome">
                                 <h:outputText value="#{pl.nome}"/>
                             </p:column>
@@ -47,9 +53,14 @@
                                 </h:outputText>
                             </p:column>
                             <p:column headerText="Estoque" style="text-align:center">
-                                <h:outputText value="#{pl.estoque}"/>
+                                <h:outputText value="#{pl.estoque}"/> <p:tag value="Baixo" severity="warning" rendered="#{pl.estoqueBaixo}" styleClass="ml-2"/> <p:tag value="Esgotado" severity="danger" rendered="#{pl.esgotado}" styleClass="ml-2"/>
                             </p:column>
-                            <p:column headerText="Ações" style="width:8rem;text-align:center">
+                            <p:column headerText="Ações" style="width:12rem;text-align:center">
+                                <p:commandButton icon="pi pi-history" title="Histórico de movimentações"
+                                                 styleClass="ui-button-secondary mr-1"
+                                                 action="#{historicoBean.carregar(pl)}"
+                                                 process="@this" update=":formHistorico"
+                                                 oncomplete="PF('dlgHistorico').show()"/>
                                 <p:commandButton icon="pi pi-pencil" title="Editar" styleClass="mr-1"
                                                  action="#{plantaBean.editar(pl)}"
                                                  process="@this" update=":formDialog"
@@ -72,7 +83,7 @@
 
                     <p:dialog header="Planta" widgetVar="dlgPlanta" modal="true"
                               responsive="true" width="450" closeOnEscape="true">
-                        <h:form id="formDialog">
+                        <h:form id="formDialog" enctype="multipart/form-data">
                             <div class="ui-fluid">
                                 <div class="field">
                                     <p:outputLabel for="nome" value="Nome"/>
@@ -106,10 +117,56 @@
                                                        itemLabel="#{l.nome}" itemValue="#{l.id}"/>
                                     </p:selectOneMenu>
                                 </div>
+                                <div class="field">
+                                    <p:outputLabel value="Foto da planta"/>
+                                    <p:fileUpload mode="advanced" auto="true" multiple="false"
+                                                  label="Escolher foto"
+                                                  listener="#{plantaBean.upload}"
+                                                  allowTypes="/(\.|\/)(jpe?g|png|gif|webp|avif)$/"
+                                                  sizeLimit="3145728"
+                                                  invalidFileMessage="Envie uma imagem JPG, PNG, GIF, WEBP ou AVIF."
+                                                  invalidSizeMessage="A foto deve ter no máximo 3 MB."
+                                                  update=":growl"/>
+                                    <h:panelGroup layout="block" styleClass="mt-2"
+                                                  rendered="#{not empty plantaBean.fotoAtual}">
+                                        <small>Foto atual:</small><br/>
+                                        <h:graphicImage value="/foto/#{plantaBean.fotoAtual}" styleClass="flor-miniatura"/>
+                                    </h:panelGroup>
+                                </div>
                             </div>
                             <p:commandButton value="Salvar" icon="pi pi-check"
                                              action="#{plantaBean.salvar}"
                                              process="@form" update="@form :formLista:tabela :growl"/>
+                        </h:form>
+                    </p:dialog>
+
+                    <p:dialog header="Histórico de movimentações" widgetVar="dlgHistorico" modal="true"
+                              responsive="true" width="640" closeOnEscape="true">
+                        <h:form id="formHistorico">
+                            <p class="mt-0">
+                                <strong>#{historicoBean.nomePlanta}</strong>
+                                &#8211; estoque atual: <strong>#{historicoBean.estoqueAtual}</strong>
+                            </p>
+
+                            <p:dataTable value="#{historicoBean.movimentacoes}" var="m"
+                                         rows="8" paginator="true"
+                                         emptyMessage="Esta planta ainda não tem movimentações.">
+                                <p:column headerText="Data">
+                                    <h:outputText value="#{m.data}">
+                                        <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Tipo" style="text-align:center">
+                                    <p:tag value="#{m.tipo.descricao}"
+                                           severity="#{m.tipo.name() eq 'ENTRADA' ? 'success' : 'danger'}"/>
+                                </p:column>
+                                <p:column headerText="Quantidade" style="text-align:center">
+                                    <h:outputText value="#{m.quantidade}"/>
+                                </p:column>
+                                <p:column headerText="Observação">
+                                    <h:outputText value="#{m.observacao}"/>
+                                </p:column>
+                            </p:dataTable>
                         </h:form>
                     </p:dialog>
                 </div>

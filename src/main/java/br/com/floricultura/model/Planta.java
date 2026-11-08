@@ -20,6 +20,9 @@ import java.util.Objects;
 @Table(name = "planta")
 public class Planta implements Serializable {
 
+    /** Estoque igual ou abaixo deste número é considerado baixo. */
+    public static final int ESTOQUE_BAIXO = 5;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +36,9 @@ public class Planta implements Serializable {
     @Column(nullable = false)
     private Integer estoque = 0;
 
+    @Column(length = 255)
+    private String foto;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
@@ -43,6 +49,14 @@ public class Planta implements Serializable {
 
     @OneToMany(mappedBy = "planta", fetch = FetchType.LAZY)
     private List<MovimentacaoEstoque> movimentacoes = new ArrayList<>();
+
+    public boolean isEsgotado() {
+        return estoque == null || estoque <= 0;
+    }
+
+    public boolean isEstoqueBaixo() {
+        return estoque != null && estoque > 0 && estoque <= ESTOQUE_BAIXO;
+    }
 
     public Long getId() {
         return id;
@@ -74,6 +88,14 @@ public class Planta implements Serializable {
 
     public void setEstoque(Integer estoque) {
         this.estoque = estoque;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public Categoria getCategoria() {

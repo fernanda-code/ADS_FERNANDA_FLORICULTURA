@@ -65,4 +65,12 @@ public class MovimentacaoEstoqueFacade extends AbstractFacade<MovimentacaoEstoqu
                 .setParameter("nome", "%" + nome.toLowerCase() + "%")
                 .getResultList();
     }
+
+    public List<MovimentacaoEstoque> listarPorPlanta(Long plantaId) {
+        return em.createQuery(
+                "SELECT m FROM MovimentacaoEstoque m WHERE m.planta.id = :id ORDER BY m.data DESC",
+                MovimentacaoEstoque.class)
+                .setParameter("id", plantaId)
+                .getResultList();
+    }
 }

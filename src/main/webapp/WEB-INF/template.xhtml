@@ -50,6 +50,24 @@
     <h:outputStylesheet name="css/primeflex.min.css" library="manhattan-layout"/>
     <h:outputStylesheet name="css/layout-green-orange.css" library="manhattan-layout"/>
     <h:outputStylesheet name="css/floricultura.css" library="floricultura"/>
+
+    <script>
+        $(function () {
+            setTimeout(function () {
+                var caminho = window.location.pathname;
+                $('.layout-menu-container li').removeClass('active-menuitem');
+                $('.layout-menu-container a').each(function () {
+                    var href = $(this).attr('href');
+                    if (href !== undefined) {
+                        var destino = href.split(/[?;#]/)[0];
+                        if (destino === caminho) {
+                            $(this).parent('li').addClass('active-menuitem');
+                        }
+                    }
+                });
+            }, 200);
+        });
+    </script>
 </h:body>
 
 </html>

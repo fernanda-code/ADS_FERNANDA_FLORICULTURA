@@ -1,3 +1,6 @@
+/* Personalização da Flor & Folha: verde e bege por cima do Manhattan.
+   Para voltar ao visual original, basta apagar este arquivo. */
+
 :root {
     --flor-verde: #4f7f3c;
     --flor-verde-escuro: #2f4a24;
@@ -29,6 +32,12 @@ body {
     background-color: var(--flor-creme);
 }
 
+.flor-avatar-img {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--flor-verde);
+}
+
 /* Menu lateral */
 .layout-wrapper.layout-light .layout-sidebar {
     background: var(--flor-bege-escuro);
@@ -37,6 +46,18 @@ body {
 .layout-wrapper .layout-sidebar .layout-sidebar-logo {
     background-color: var(--flor-verde);
     background-image: none;
+}
+
+.layout-sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flor-logo-sidebar {
+    width: 38px;
+    height: 38px;
+    color: var(--flor-creme);
 }
 
 .layout-wrapper.layout-light .layout-sidebar .layout-menu li > a {
@@ -88,7 +109,7 @@ body {
     color: var(--flor-verde-escuro);
 }
 
-/* Logo em texto */
+/* Logo em texto do login */
 .flor-logo {
     display: inline-flex;
     align-items: center;
@@ -102,18 +123,6 @@ body {
     font-size: 36px;
     font-weight: 700;
     letter-spacing: 1px;
-}
-
-.layout-sidebar-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.flor-logo-sidebar {
-    width: 38px;
-    height: 38px;
-    color: var(--flor-creme);
 }
 
 /* Página inicial: cards de plantas */
@@ -139,6 +148,8 @@ body {
 }
 
 .flor-card-img {
+    position: relative;
+    overflow: hidden;
     height: 170px;
     background: var(--flor-bege-escuro);
     display: flex;
@@ -151,6 +162,18 @@ body {
     width: 64px;
     height: 64px;
     opacity: 0.6;
+}
+
+.flor-card-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+}
+
+.flor-card:hover .flor-card-foto {
+    transform: scale(1.06);
 }
 
 .flor-card-corpo {
@@ -243,4 +266,13 @@ body {
 
 .flor-banner-botao:hover {
     background: var(--flor-bege-escuro);
+}
+
+/* Miniatura de foto da planta */
+.flor-miniatura {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--flor-bege-escuro);
 }

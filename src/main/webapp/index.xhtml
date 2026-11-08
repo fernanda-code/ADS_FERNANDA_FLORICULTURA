@@ -29,9 +29,14 @@
                 <div class="col-12 sm:col-6 lg:col-3">
                     <div class="flor-card">
                         <div class="flor-card-img">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-                            </svg>
+                            <h:graphicImage value="/foto/#{pl.foto}" alt="#{pl.nome}"
+                                            styleClass="flor-card-foto"
+                                            rendered="#{not empty pl.foto}"/>
+                            <ui:fragment rendered="#{empty pl.foto}">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+                                </svg>
+                            </ui:fragment>
                         </div>
                         <div class="flor-card-corpo">
                             <span class="flor-card-categoria">#{pl.categoria.nome}</span>
@@ -42,8 +47,8 @@
                                         <f:convertNumber type="currency" currencySymbol="R$ " locale="pt_BR"/>
                                     </h:outputText>
                                 </span>
-                                <p:tag value="#{pl.estoque gt 0 ? 'Em estoque' : 'Esgotado'}"
-                                       severity="#{pl.estoque gt 0 ? 'success' : 'danger'}"/>
+                                <p:tag value="#{pl.esgotado ? 'Esgotado' : (pl.estoqueBaixo ? 'Poucas unidades' : 'Em estoque')}"
+                                       severity="#{pl.esgotado ? 'danger' : (pl.estoqueBaixo ? 'warning' : 'success')}"/>
                             </div>
                         </div>
                     </div>
