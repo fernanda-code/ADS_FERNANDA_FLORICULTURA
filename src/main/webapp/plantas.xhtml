@@ -30,7 +30,7 @@
                         </div>
 
                         <p:dataTable id="tabela" value="#{plantaBean.plantas}" var="pl"
-                                     rows="10" paginator="true"
+                                     rows="10" paginator="true" paginatorPosition="bottom"
                                      emptyMessage="Nenhuma planta encontrada.">
                             <p:column headerText="Foto" style="width:5rem;text-align:center">
                                 <h:graphicImage value="/foto/#{pl.foto}" styleClass="flor-miniatura"
@@ -66,7 +66,7 @@
                                                  process="@this" update=":formDialog"
                                                  oncomplete="PF('dlgPlanta').show()"
                                                  resetValues="true"/>
-                                <p:commandButton icon="pi pi-trash" title="Excluir" styleClass="ui-button-danger"
+                                <p:commandButton icon="pi pi-trash" title="Excluir" styleClass="ui-button-danger" rendered="#{loginBean.admin}"
                                                  action="#{plantaBean.excluir(pl)}"
                                                  process="@this" update="tabela :growl">
                                     <p:confirm header="Confirmação" message="Excluir esta planta?"
@@ -149,7 +149,7 @@
                             </p>
 
                             <p:dataTable value="#{historicoBean.movimentacoes}" var="m"
-                                         rows="8" paginator="true"
+                                         rows="8" paginator="true" paginatorPosition="bottom"
                                          emptyMessage="Esta planta ainda não tem movimentações.">
                                 <p:column headerText="Data">
                                     <h:outputText value="#{m.data}">

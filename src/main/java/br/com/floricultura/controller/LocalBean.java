@@ -19,6 +19,9 @@ public class LocalBean implements Serializable {
     @EJB
     private LocalFacade facade;
 
+    @jakarta.inject.Inject
+    private LoginBean loginBean;
+
     private List<Local> locais;
     private Local local = new Local();
     private String filtro;
@@ -71,6 +74,10 @@ public class LocalBean implements Serializable {
     }
 
     public void excluir(Local selecionado) {
+        if (!loginBean.isAdmin()) {
+            mensagem(FacesMessage.SEVERITY_ERROR, "Apenas administradores podem excluir.");
+            return;
+        }
         try {
             facade.remover(selecionado);
             mensagem(FacesMessage.SEVERITY_INFO, "Local excluído.");

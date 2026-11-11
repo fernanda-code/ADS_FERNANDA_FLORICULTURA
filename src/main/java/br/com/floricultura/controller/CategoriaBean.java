@@ -19,6 +19,9 @@ public class CategoriaBean implements Serializable {
     @EJB
     private CategoriaFacade facade;
 
+    @jakarta.inject.Inject
+    private LoginBean loginBean;
+
     private List<Categoria> categorias;
     private Categoria categoria = new Categoria();
     private String filtro;
@@ -71,6 +74,10 @@ public class CategoriaBean implements Serializable {
     }
 
     public void excluir(Categoria selecionada) {
+        if (!loginBean.isAdmin()) {
+            mensagem(FacesMessage.SEVERITY_ERROR, "Apenas administradores podem excluir.");
+            return;
+        }
         try {
             facade.remover(selecionada);
             mensagem(FacesMessage.SEVERITY_INFO, "Categoria excluída.");

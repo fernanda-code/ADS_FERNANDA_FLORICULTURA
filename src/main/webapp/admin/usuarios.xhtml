@@ -30,7 +30,7 @@
                         </div>
 
                         <p:dataTable id="tabela" value="#{usuarioBean.usuarios}" var="u"
-                                     rows="10" paginator="true"
+                                     rows="10" paginator="true" paginatorPosition="bottom"
                                      emptyMessage="Nenhum usuário encontrado.">
                             <p:column headerText="Nome">
                                 <h:outputText value="#{u.nome}"/>

@@ -30,7 +30,7 @@
                         </div>
 
                         <p:dataTable id="tabela" value="#{categoriaBean.categorias}" var="c"
-                                     rows="10" paginator="true"
+                                     rows="10" paginator="true" paginatorPosition="bottom"
                                      emptyMessage="Nenhuma categoria encontrada.">
                             <p:column headerText="Nome">
                                 <h:outputText value="#{c.nome}"/>
@@ -44,7 +44,7 @@
                                                  process="@this" update=":formDialog"
                                                  oncomplete="PF('dlgCategoria').show()"
                                                  resetValues="true"/>
-                                <p:commandButton icon="pi pi-trash" title="Excluir" styleClass="ui-button-danger"
+                                <p:commandButton icon="pi pi-trash" title="Excluir" styleClass="ui-button-danger" rendered="#{loginBean.admin}"
                                                  action="#{categoriaBean.excluir(c)}"
                                                  process="@this" update="tabela :growl">
                                     <p:confirm header="Confirmação" message="Excluir esta categoria?"

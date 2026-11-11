@@ -30,7 +30,7 @@
                         </div>
 
                         <p:dataTable id="tabela" value="#{estoqueBean.movimentacoes}" var="m"
-                                     rows="10" paginator="true"
+                                     rows="10" paginator="true" paginatorPosition="bottom"
                                      emptyMessage="Nenhuma movimentação encontrada.">
                             <p:column headerText="Data">
                                 <h:outputText value="#{m.data}">

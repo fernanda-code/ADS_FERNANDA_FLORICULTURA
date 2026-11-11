@@ -33,6 +33,9 @@ public class PlantaBean implements Serializable {
     @EJB
     private PlantaFacade facade;
 
+    @jakarta.inject.Inject
+    private LoginBean loginBean;
+
     @EJB
     private CategoriaFacade categoriaFacade;
 
@@ -141,6 +144,10 @@ public class PlantaBean implements Serializable {
     }
 
     public void excluir(Planta selecionada) {
+        if (!loginBean.isAdmin()) {
+            mensagem(FacesMessage.SEVERITY_ERROR, "Apenas administradores podem excluir.");
+            return;
+        }
         try {
             facade.remover(selecionada);
             apagarArquivo(selecionada.getFoto());

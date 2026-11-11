@@ -276,3 +276,66 @@ body {
     border-radius: 8px;
     border: 1px solid var(--flor-bege-escuro);
 }
+
+/* Tabelas */
+body .ui-datatable thead th {
+    background: var(--flor-bege-escuro);
+    color: var(--flor-verde-escuro);
+    border-color: #d8cdb0;
+}
+
+body .ui-datatable .ui-datatable-data > tr {
+    background: var(--flor-creme);
+    color: var(--flor-texto);
+}
+
+body .ui-datatable .ui-datatable-data > tr:hover {
+    background: #f0e7d0;
+}
+
+body .ui-datatable .ui-datatable-data > tr > td {
+    border-color: var(--flor-bege-escuro);
+}
+
+/* Paginação */
+body .ui-paginator {
+    background: var(--flor-creme);
+}
+
+body .ui-paginator .ui-state-hover,
+body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-hover {
+    background: var(--flor-bege-escuro);
+    color: var(--flor-verde-escuro);
+}
+
+body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+    background: var(--flor-verde);
+    color: var(--flor-creme);
+}
+
+/* Botões */
+body .ui-button {
+    background: var(--flor-verde);
+    border-color: var(--flor-verde);
+    color: var(--flor-creme);
+}
+
+body .ui-button:not(:disabled):hover {
+    background: var(--flor-verde-escuro);
+    border-color: var(--flor-verde-escuro);
+}
+
+/* Janelinhas */
+body .ui-dialog {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+    background: var(--flor-bege-escuro);
+    color: var(--flor-verde-escuro);
+}
+
+body .ui-dialog .ui-dialog-content {
+    background: var(--flor-creme);
+}
