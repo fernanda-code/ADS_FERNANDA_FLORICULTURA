@@ -20,7 +20,6 @@ import java.util.Objects;
 @Table(name = "planta")
 public class Planta implements Serializable {
 
-    /** Estoque igual ou abaixo deste número é considerado baixo. */
     public static final int ESTOQUE_BAIXO = 5;
 
     @Id

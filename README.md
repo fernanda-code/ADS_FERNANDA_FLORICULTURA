@@ -2,7 +2,7 @@
 
 Sistema web de controle de estoque para uma floricultura, desenvolvido como trabalho final da disciplina de Tópicos Especiais em Desenvolvimento de Software III (Análise e Desenvolvimento de Sistemas).
 
-Autora: Fernanda
+Autora: Fernanda Moresco
 
 ## Tecnologias
 

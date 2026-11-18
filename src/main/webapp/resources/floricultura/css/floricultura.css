@@ -1,33 +1,27 @@
-/* Personalização da Flor & Folha: verde e bege por cima do Manhattan.
-   Para voltar ao visual original, basta apagar este arquivo. */
-
 :root {
     --flor-verde: #4f7f3c;
     --flor-verde-escuro: #2f4a24;
     --flor-bege: #f3ecdc;
+    --flor-bege-medio: #d8cdb0;
     --flor-bege-escuro: #e6dcc4;
     --flor-creme: #fffaf0;
     --flor-texto: #3d3a30;
+    --flor-texto-suave: #8a8672;
 }
+
 
 body {
     background-color: var(--flor-bege);
     color: var(--flor-texto);
 }
 
-/* Cartões e rodapé */
 .card {
     background: var(--flor-creme);
     border: 1px solid var(--flor-bege-escuro);
     border-radius: 8px;
 }
 
-.layout-wrapper .layout-main .layout-footer {
-    background: var(--flor-creme);
-    border-color: var(--flor-bege-escuro);
-}
 
-/* Barra do topo */
 .layout-wrapper .layout-main .layout-topbar {
     background-color: var(--flor-creme);
 }
@@ -38,20 +32,17 @@ body {
     border: 2px solid var(--flor-verde);
 }
 
-/* Menu lateral */
+
 .layout-wrapper.layout-light .layout-sidebar {
     background: var(--flor-bege-escuro);
 }
 
 .layout-wrapper .layout-sidebar .layout-sidebar-logo {
-    background-color: var(--flor-verde);
-    background-image: none;
-}
-
-.layout-sidebar-logo {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--flor-verde);
+    background-image: none;
 }
 
 .flor-logo-sidebar {
@@ -65,10 +56,16 @@ body {
 }
 
 .layout-wrapper.layout-light .layout-sidebar .layout-menu > li > a:hover {
-    background-color: #d8cdb0;
+    background-color: var(--flor-bege-medio);
 }
 
-/* Tela de login */
+
+.layout-wrapper .layout-main .layout-footer {
+    background: var(--flor-creme);
+    border-color: var(--flor-bege-escuro);
+}
+
+
 .login-body {
     background-color: var(--flor-verde-escuro);
     background-size: cover;
@@ -102,14 +99,13 @@ body {
 }
 
 .login-body .login-panel .right-side h3 {
-    color: #8a8672;
+    color: var(--flor-texto-suave);
 }
 
 .login-body .login-panel .right-side h2 {
     color: var(--flor-verde-escuro);
 }
 
-/* Logo em texto do login */
 .flor-logo {
     display: inline-flex;
     align-items: center;
@@ -125,10 +121,66 @@ body {
     letter-spacing: 1px;
 }
 
-/* Página inicial: cards de plantas */
+
 .flor-titulo-secao {
     margin: 0 0 4px 0;
     color: var(--flor-verde-escuro);
+}
+
+.flor-banner {
+    min-height: 260px;
+    border-radius: 12px;
+    background-color: var(--flor-verde-escuro);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 32px 40px;
+    margin-bottom: 8px;
+}
+
+.flor-banner-texto {
+    max-width: 520px;
+    color: var(--flor-creme);
+}
+
+.flor-banner-selo {
+    display: inline-block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border: 1px solid rgba(255, 250, 240, 0.7);
+    border-radius: 999px;
+}
+
+.flor-banner-texto h1 {
+    margin: 12px 0 8px 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    line-height: 1.15;
+    color: var(--flor-creme);
+}
+
+.flor-banner-texto p {
+    margin: 0 0 18px 0;
+    font-size: 16px;
+}
+
+.flor-banner-botao {
+    display: inline-block;
+    background: var(--flor-creme);
+    color: var(--flor-verde-escuro);
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.flor-banner-botao:hover {
+    background: var(--flor-bege-escuro);
 }
 
 .flor-card {
@@ -188,7 +240,7 @@ body {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #8a8672;
+    color: var(--flor-texto-suave);
 }
 
 .flor-card-corpo h3 {
@@ -211,64 +263,7 @@ body {
     color: var(--flor-verde);
 }
 
-/* Página inicial: banner */
-.flor-banner {
-    min-height: 260px;
-    border-radius: 12px;
-    background-color: var(--flor-verde-escuro);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    padding: 32px 40px;
-    margin-bottom: 8px;
-}
 
-.flor-banner-texto {
-    max-width: 520px;
-    color: var(--flor-creme);
-}
-
-.flor-banner-selo {
-    display: inline-block;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 4px 10px;
-    border: 1px solid rgba(255, 250, 240, 0.7);
-    border-radius: 999px;
-}
-
-.flor-banner-texto h1 {
-    margin: 12px 0 8px 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 34px;
-    line-height: 1.15;
-    color: var(--flor-creme);
-}
-
-.flor-banner-texto p {
-    margin: 0 0 18px 0;
-    font-size: 16px;
-}
-
-.flor-banner-botao {
-    display: inline-block;
-    background: var(--flor-creme);
-    color: var(--flor-verde-escuro);
-    font-weight: 700;
-    padding: 10px 22px;
-    border-radius: 999px;
-    text-decoration: none;
-    transition: background 0.2s;
-}
-
-.flor-banner-botao:hover {
-    background: var(--flor-bege-escuro);
-}
-
-/* Miniatura de foto da planta */
 .flor-miniatura {
     width: 48px;
     height: 48px;
@@ -277,11 +272,11 @@ body {
     border: 1px solid var(--flor-bege-escuro);
 }
 
-/* Tabelas */
+
 body .ui-datatable thead th {
     background: var(--flor-bege-escuro);
     color: var(--flor-verde-escuro);
-    border-color: #d8cdb0;
+    border-color: var(--flor-bege-medio);
 }
 
 body .ui-datatable .ui-datatable-data > tr {
@@ -297,7 +292,7 @@ body .ui-datatable .ui-datatable-data > tr > td {
     border-color: var(--flor-bege-escuro);
 }
 
-/* Paginação */
+
 body .ui-paginator {
     background: var(--flor-creme);
 }
@@ -313,7 +308,7 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
     color: var(--flor-creme);
 }
 
-/* Botões */
+
 body .ui-button {
     background: var(--flor-verde);
     border-color: var(--flor-verde);
@@ -325,7 +320,7 @@ body .ui-button:not(:disabled):hover {
     border-color: var(--flor-verde-escuro);
 }
 
-/* Janelinhas */
+
 body .ui-dialog {
     border-radius: 12px;
     overflow: hidden;
